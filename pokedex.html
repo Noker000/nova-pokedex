@@ -2,23 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pokedex</title>
-
-  <!-- Links -->
   <link rel="stylesheet" href="pokedex.css" />
   <script defer src="pokedex.js"></script>
 </head>
 <body>
 
-  <!-- Botão para abrir/fechar a lista -->
+  <!-- Botão para abrir/fechar a lista lateral -->
   <button class="toggle-lista">&gt;</button>
 
   <!-- Lista lateral de animais -->
-  <aside class="animal-lista">
+  <aside class="animal-lista fechar">
     <ul class="lista-itens">
       <li data-index="0">1 - Lobo Cinzento</li>
-      <li data-index="1">2 - DODO</li>
+      <li data-index="1">2 - Dodô</li>
       <li data-index="2">3 - Rato de Noronha</li>
       <li data-index="3">4 - Tigre de Java</li>
       <li data-index="4">5 - Leopardo Nebuloso</li>
@@ -27,30 +25,45 @@
       <li data-index="7">8 - Macaco prego</li>
       <li data-index="8">9 - Pombo Passageiro</li>
       <li data-index="9">10 - Corvo do Havaí</li>
+      <li data-index="10">11 - Panda Gigante</li>
+      <li data-index="11">12 - Caburé-de-Pernambuco</li>
+      <li data-index="12">13 - Eudyptula wilsonae</li>
     </ul>
   </aside>
 
-  <!-- Pokedex principal -->
-  <main>
-    <img src="" alt="animal" class="animal_1" />
+  <h1 class="titulo-extindex">Extindex</h1>
 
+  <main class="recolhido">
+
+    <!-- Botão de informações -->
+    <button class="info-toggle">≡</button>
+    <button class="az-toggle">A-Z</button>
+
+    <!-- Painel de informações -->
+    <div class="info-panel">
+      <h2 class="info-titulo">Informações do Animal</h2>
+      <p><strong>Nome:</strong> <span class="info-nome">Lobo Cinzento</span></p>
+      <p><strong>Número:</strong> <span class="info-numero">01</span></p>
+      <p><strong>Descrição:</strong> <span class="info-descricao">O lobo cinzento é uma espécie de mamífero carnívoro...</span></p>
+    </div>
+
+    <!-- Imagem e informações principais -->
+    <img src="" alt="animal" class="animal_1" />
     <h1 class="animal_data">
       <span class="animal_numero">01</span>
       <span class="animal_nome">Lobo Cinzento</span>
     </h1>
-
-    <form class="form">
-      <input type="search" class="input_search" placeholder="Nome ou número" required />
-    </form>
 
     <div class="buttons">
       <button class="button btn-prev">&lt; Prev</button>
       <button class="button btn-next">Next &gt;</button>
     </div>
 
-    <img src="c:\Users\JoaoVictorAraujoSant\Desktop\Nova pokedex\pokedex.png" alt="pokedex" class="pokedex" />
-    
+
+    <img src="c:/Users/JoaoVictorAraujoSant/Desktop/nova-pokedex/pokedex.png" alt="pokedex" class="pokedex" />
+
   </main>
 
+  
 </body>
 </html>

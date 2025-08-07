@@ -28,12 +28,16 @@ body {
   z-index: 1000;
   border-right: 2px solid #70037a;
 
-  transform: translateX(0);
+  transform: translateX(-100%);
   transition: transform 0.4s ease;
 }
 
 .animal-lista.fechar {
   transform: translateX(-100%);
+}
+
+.animal-lista:not(.fechar) {
+  transform: translateX(0);
 }
 
 .lista-itens {
@@ -60,9 +64,9 @@ body {
 
 /* Botão toggle da lista */
 .toggle-lista {
-  position: fixed;
-  top: 20px;
-  left: 250px;
+  position: fixed;       /* fixo na tela */
+  top: 20px;            /* mesma distância do topo */
+  left: 0;              /* colado na esquerda da tela */
   z-index: 1100;
   background: #70037a;
   color: #fff;
@@ -73,6 +77,12 @@ body {
   font-size: 1.2rem;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   transition: background 0.3s, left 0.4s ease;
+}
+
+/* Quando a lista estiver aberta, o botão vai para a direita da barra lateral */
+.animal-lista:not(.fechar) ~ main + .toggle-lista,
+.animal-lista:not(.fechar) ~ .toggle-lista {
+  left: 250px; /* desloca para direita, igual a largura da barra */
 }
 
 .toggle-lista:hover {
@@ -89,12 +99,16 @@ main {
   margin-top: 2%;
   padding: 15px;
   position: relative;
-  margin-left: 270px;
+  margin-left: 20px; /* Começa com margem menor, pois a lista inicia fechada */
   transition: margin-left 0.4s ease;
 }
 
 main.recolhido {
   margin-left: 20px;
+}
+
+main:not(.recolhido) {
+  margin-left: 270px; /* margem maior quando lista aberta */
 }
 
 .pokedex {
@@ -167,3 +181,94 @@ main.recolhido {
   box-shadow: inset -4px 4px 0 #222;
   font-size: 0.9rem;
 }
+
+/* Botão de informações - mover para o meio da área principal */
+.info-toggle {
+  position: absolute;  /* mudou de fixed para absolute */
+  top: 72%;            /* posição vertical no meio (ajusta conforme quiser) */
+  left: 45%;           /* centralizado horizontalmente no main */
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 50%;
+  font-size: 2.1rem;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+  z-index: 1002; /* acima do painel e main */
+}
+
+.info-toggle:hover {
+  background-color: #f0f0f0;
+}
+
+.az-toggle {
+  position: absolute;
+  top: 72%; /* alinhado verticalmente com o botão de informações */
+  left: 60%; /* ajusta para a direita do botão de informações */
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.7rem;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+  z-index: 1002;
+}
+
+.az-toggle:hover {
+  background-color: #f0f0f0;
+}
+
+
+/* Painel de informações - posicionar ao lado do main (da pokedex), centralizado verticalmente */
+.info-panel {
+  position: absolute;    /* mudou de fixed para absolute */
+  top: 50%;
+  left: 100%;            /* do lado direito do main */
+  margin-left: 20px;     /* espaçamento entre main e painel */
+  transform: translateY(-50%);
+  width: 300px;
+  max-width: 320px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(1, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1001;
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+}
+
+.info-panel.ativo {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%);
+}
+
+.info-descricao p {
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+.titulo-extindex {
+  font-size: 3rem; /* tamanho grande */
+  color: yellow;
+  text-shadow: 2px 2px 5px black;
+  text-align: center;
+  margin: 20px 0;
+  transition: transform 0.3s ease; /* para animar o movimento */
+  user-select: none; /* opcional, para evitar seleção do texto */
+}
+
+
