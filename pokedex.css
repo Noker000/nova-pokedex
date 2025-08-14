@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500;600;700;800&display=swap');
 
+
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +12,7 @@ body {
   text-align: center;
   background: linear-gradient(to bottom, #70037a, #690101);
   min-height: 100vh;
-}
+} 
 
 /* Lista lateral */
 .animal-lista {
@@ -271,4 +272,26 @@ main:not(.recolhido) {
   user-select: none; /* opcional, para evitar seleção do texto */
 }
 
+.titulo-extindex {
+  font-size: 3rem;
+  color: yellow;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  margin: 50px 0 20px;
+  transition: margin-left 0.4s ease;
+  user-select: none;
+}
+
+/* Quando a lista lateral está aberta, mover o título junto */
+main:not(.recolhido) + .titulo-extindex {
+  margin-left: 250px;
+}
+
+.info-toggle.ativo,
+.az-toggle.ativo {
+  background-color: #add8e6; /* azul claro */
+  transform: scale(1.1);     /* leve animação */
+  box-shadow: 0 0 10px #add8e6;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
 

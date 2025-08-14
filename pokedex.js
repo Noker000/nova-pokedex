@@ -9,7 +9,7 @@ const animais = [
     posicao: {
       bottom: "55%",
       left: "50%",
-      transform: "translate(-63%, 20%)",
+      transform: "translate(-55%, 75%)",
     },
   },
   {
@@ -22,7 +22,7 @@ const animais = [
     posicao: {
       bottom: "52%",
       left: "45%",
-      transform: "translate(-50%, 0%)",
+      transform: "translate(-45%, 75%)",
     },
   },
   {
@@ -35,7 +35,7 @@ const animais = [
     posicao: {
       bottom: "54%",
       left: "44%",
-      transform: "translate(-58%, 18%)",
+      transform: "translate(-58%, 100%)",
     },
   },
   {
@@ -48,7 +48,7 @@ const animais = [
     posicao: {
       bottom: "54%",
       left: "50%",
-      transform: "translate(-58%, 18%)",
+      transform: "translate(-58%, 125%)",
     },
   },
   {
@@ -61,7 +61,7 @@ const animais = [
     posicao: {
       bottom: "54%",
       left: "50%",
-      transform: "translate(-58%, 18%)",
+      transform: "translate(-58%, 80%)",
     },
   },
   {
@@ -74,7 +74,7 @@ const animais = [
     posicao: {
       bottom: "54%",
       left: "45%",
-      transform: "translate(-58%, 18%)",
+      transform: "translate(-58%, 80%)",
     },
   },
   {
@@ -82,12 +82,12 @@ const animais = [
     nome: "Gigantopithecus",
     imagem: "c:/Users/JoaoVictorAraujoSant/Desktop/nova-pokedex/Imagens/Gigantopithecus.gif",
     descricao: "O Gigantopithecus viveu há cerca de 2 milhões a 300 mil anos atrás na Ásia (principalmente China, Índia e Vietnã).\n\nFoi o maior primata conhecido da história. Estima-se que chegava a 3 metros de altura e pesava até 500 kg.\n\nEra um parente distante dos orangotangos e, provavelmente, herbívoro, com dieta baseada.",
-    largura: "47%",
-    altura: "auto",
+    largura: "50%",
+    altura: "150",
     posicao: {
       bottom: "54%",
       left: "48%",
-      transform: "translate(-58%, 18%)",
+      transform: "translate(-55%, 70%)",
     },
   },
   {
@@ -100,7 +100,7 @@ const animais = [
     posicao: {
       bottom: "54%",
       left: "48%",
-      transform: "translate(-58%, 18%)",
+      transform: "translate(-50%, 70%)",
     },
   },
   {
@@ -113,7 +113,7 @@ const animais = [
     posicao: {
       bottom: "54%",
       left: "45%",
-      transform: "translate(-58%, 30%)",
+      transform: "translate(-58%, 100%)",
     },
   },
   {
@@ -126,7 +126,7 @@ const animais = [
     posicao: {
       bottom: "54%",
       left: "48%",
-      transform: "translate(-58%, -8%)",
+      transform: "translate(-58%, 60%)",
     },
   },
   {
@@ -139,7 +139,7 @@ const animais = [
     posicao: {
       bottom: "54%",
       left: "48%",
-      transform: "translate(-58%, 25%)",
+      transform: "translate(-58%, 75%)",
     },
   },
   {
@@ -152,7 +152,7 @@ const animais = [
     posicao: {
       bottom: "54%",
       left: "50%",
-      transform: "translate(-58%, 0%)",
+      transform: "translate(-58%, 55%)",
     },
   },
    {
@@ -165,7 +165,7 @@ const animais = [
     posicao: {
       bottom: "54%",
       left: "47%",
-      transform: "translate(-58%, 25%)",
+      transform: "translate(-58%, 100%)",
     },
   },
 ];
@@ -225,6 +225,41 @@ botaoPrev.addEventListener("click", () => {
   atualizarAnimal(indiceAtual);
 });
 
+// Valores de deslocamento (px)
+let deslocamentoY = 50;
+let deslocamentoX = 20;
+
+// Aplica o deslocamento apenas nos elementos dentro da pokedex
+function aplicarDeslocamento(valorX, valorY) {
+  // Nome + número
+  document.querySelector(".animal_data").style.transform = `translate(${valorX}px, 60px)`;
+  
+  // Botões prev / next
+  document.querySelector(".buttons").style.transform = `translate(-165px, 20px)`;
+  
+  // Botões info / A-Z (com ajustes específicos)
+  document.querySelector(".info-toggle").style.transform = `translate(-60px, 15px)`;
+  document.querySelector(".az-toggle").style.transform = `translate(-45px, 15px)`;
+  
+  // Título Extindex (com ajuste específico no Y)
+  document.querySelector(".titulo-extindex").style.transform = `translate(0px, 20px)`;
+  
+  // Imagem do animal (mantendo escala original + deslocamento)
+  const animal = listaAtual[indiceAtual];
+  imagemAnimal.style.bottom = animal.posicao.bottom;
+
+  // Garante que se houver escala, ela será preservada
+  let escala = "";
+  if (animal.posicao.transform && animal.posicao.transform.includes("scale")) {
+    escala = animal.posicao.transform.match(/scale\([^)]+\)/)[0]; // pega apenas a escala
+  }
+
+}
+
+// Aplica ao carregar
+aplicarDeslocamento(deslocamentoX, deslocamentoY);
+
+
 reordenarListaLateral(animais);
 // Toggle da lista lateral
 const botaoToggle = document.querySelector(".toggle-lista");
@@ -273,18 +308,12 @@ function reordenarListaLateral(listaAtual) {
 // Evento do botão A-Z
 botaoAZ.addEventListener("click", () => {
   ordemAlfabeticaAtiva = !ordemAlfabeticaAtiva;
+  botaoAZ.classList.toggle("ativo", ordemAlfabeticaAtiva);
 
-  if (ordemAlfabeticaAtiva) {
-    listaAtual = animaisOrdenados;  // Troca a lista atual para ordenada
-    reordenarListaLateral(animaisOrdenados);
-    indiceAtual = 0;
-    atualizarAnimal(indiceAtual);
-  } else {
-    listaAtual = animais;            // Volta para a lista original
-    reordenarListaLateral(animais);
-    indiceAtual = 0;
-    atualizarAnimal(indiceAtual);
-  }
+  listaAtual = ordemAlfabeticaAtiva ? animaisOrdenados : animais;
+  reordenarListaLateral(listaAtual);
+  indiceAtual = 0;
+  atualizarAnimal(indiceAtual);
 });
 
 
@@ -307,9 +336,10 @@ function atualizarInfoPanel(animal) {
 // Adiciona o evento de clique ao botão
 infoToggle.addEventListener('click', () => {
   toggleInfoPanel();
+  infoToggle.classList.toggle('ativo');
   if (infoPanel.classList.contains('ativo')) {
     atualizarInfoPanel(animais[indiceAtual]);
   }
 });
 
-//atualização//
+
