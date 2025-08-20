@@ -197,19 +197,23 @@ function adicionarUnidade(tamanho) {
   return tamanho;
 }
 
+// Função para atualizar a Pokedex com base no índice
 function atualizarAnimal(index) {
   const animal = listaAtual[index];
+  
+  // Atualiza a imagem e as informações do animal
   imagemAnimal.src = animal.imagem;
   nomeAnimal.textContent = animal.nome;
   numeroAnimal.textContent = animal.numero;
+  
   imagemAnimal.style.position = "absolute";
   imagemAnimal.style.width = adicionarUnidade(animal.largura);
   imagemAnimal.style.height = adicionarUnidade(animal.altura);
   imagemAnimal.style.bottom = animal.posicao.bottom;
   imagemAnimal.style.left = animal.posicao.left;
   imagemAnimal.style.transform = animal.posicao.transform;
-
-  // Atualiza o painel de info caso esteja aberto
+  
+  // Atualiza o painel de informações caso esteja aberto
   if (infoPanel.classList.contains('ativo')) {
     atualizarInfoPanel(animal);
   }
@@ -290,19 +294,23 @@ function reordenarListaLateral(listaAtual) {
   const ul = document.querySelector(".lista-itens");
   ul.innerHTML = ""; // limpa a lista
 
-  listaAtual.forEach((animal) => {
+  listaAtual.forEach((animal, index) => {
     const li = document.createElement("li");
     li.textContent = `${animal.numero} - ${animal.nome}`;
-    // Pegando o índice do animal no array original
-    const indiceOriginal = animais.indexOf(animal);
-    li.setAttribute("data-index", indiceOriginal);
+    
+    // Usando o índice da lista como 'data-index'
+    li.setAttribute("data-index", index);  // Usando o índice correto aqui
+
+    // Adiciona o evento de clique ao item da lista
     li.addEventListener("click", () => {
-      indiceAtual = indiceOriginal;  // usa índice do array original
-      atualizarAnimal(indiceAtual);
+      indiceAtual = index;  // Atualiza o índice para o item clicado
+      atualizarAnimal(indiceAtual);  // Atualiza o animal na Pokedex com o índice correto
     });
+    
     ul.appendChild(li);
   });
 }
+
 
 
 // Evento do botão A-Z
@@ -310,10 +318,10 @@ botaoAZ.addEventListener("click", () => {
   ordemAlfabeticaAtiva = !ordemAlfabeticaAtiva;
   botaoAZ.classList.toggle("ativo", ordemAlfabeticaAtiva);
 
-  listaAtual = ordemAlfabeticaAtiva ? animaisOrdenados : animais;
-  reordenarListaLateral(listaAtual);
-  indiceAtual = 0;
-  atualizarAnimal(indiceAtual);
+  listaAtual = ordemAlfabeticaAtiva ? animaisOrdenados : animais;  // Atualiza a lista de animais
+  reordenarListaLateral(listaAtual);  // Reorganiza a lista lateral com a nova ordem
+  indiceAtual = 0;  // Reseta o índice
+  atualizarAnimal(indiceAtual);  // Atualiza a Pokedex com o primeiro animal
 });
 
 
